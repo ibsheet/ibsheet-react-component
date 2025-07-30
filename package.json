@@ -20,6 +20,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build && tsc --project tsconfig.build.json && yarn copy-package",
+    "postbuild": "shx cp README.md LICENSE dist/ibsheet-react/",
     "copy-package": "shx cp package.dist.json dist/ibsheet-react/package.json",
     "lint": "eslint .",
     "preview": "vite preview"
