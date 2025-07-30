@@ -1,0 +1,47 @@
+{
+  "name": "ibsheet-react",
+  "private": true,
+  "version": "1.0.0",
+  "license": "MIT",
+  "type": "module",
+  "types": "dist/ibsheet-react/index.d.ts",
+  "main": "dist/ibsheet-react/ibsheet-react.cjs.js",
+  "module": "dist/ibsheet-react/ibsheet-react.es.js",
+  "exports": {
+    ".": {
+      "types": "./dist/ibsheet-react/index.d.ts",
+      "import": "./dist/ibsheet-react/ibsheet-react.es.js",
+      "require": "./dist/ibsheet-react/ibsheet-react.cjs.js"
+    }
+  },
+  "files": [
+    "dist/ibsheet-react"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build && tsc --project tsconfig.build.json && yarn copy-package",
+    "copy-package": "shx cp package.dist.json dist/ibsheet-react/package.json",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@types/prop-types": "^15.7.15",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.30.1",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
+    "@vitejs/plugin-react": "^4.6.0",
+    "eslint": "^9.30.1",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.20",
+    "globals": "^16.3.0",
+    "rollup-plugin-terser": "^7.0.2",
+    "shx": "^0.4.0",
+    "typescript": "~5.8.3",
+    "typescript-eslint": "^8.35.1",
+    "vite": "^7.0.4"
+  }
+}
