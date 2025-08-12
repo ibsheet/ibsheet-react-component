@@ -1,5 +1,5 @@
 {
-  "name": "ibsheet-react",
+  "name": "ibsheet-react-component",
   "private": true,
   "version": "1.0.0",
   "license": "MIT",
@@ -26,6 +26,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@ibsheet/interface": "^1.0.0",
     "@types/prop-types": "^15.7.15",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"

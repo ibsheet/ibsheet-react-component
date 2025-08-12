@@ -22,7 +22,7 @@ export default defineConfig({
           entryFileNames: 'ibsheet-react.es.js',
           globals: {
             react: 'React',
-            'react-dom': 'ReactDOM',
+            'react-dom': 'ReactDOM'
           },
         },
         {
@@ -31,7 +31,7 @@ export default defineConfig({
           plugins: [terser()],
           globals: {
             react: 'React',
-            'react-dom': 'ReactDOM',
+            'react-dom': 'ReactDOM'
           },
         },
         {
@@ -39,7 +39,7 @@ export default defineConfig({
           entryFileNames: 'ibsheet-react.cjs.js',
           globals: {
             react: 'React',
-            'react-dom': 'ReactDOM',
+            'react-dom': 'ReactDOM'
           },
         },
         // CJS - 압축
@@ -49,7 +49,7 @@ export default defineConfig({
           plugins: [terser()],
           globals: {
             react: 'React',
-            'react-dom': 'ReactDOM',
+            'react-dom': 'ReactDOM'
           },
         },
         // UMD - 비압축
@@ -59,7 +59,7 @@ export default defineConfig({
           entryFileNames: 'ibsheet-react.umd.js',
           globals: {
             react: 'React',
-            'react-dom': 'ReactDOM',
+            'react-dom': 'ReactDOM'
           },
         },
       ]

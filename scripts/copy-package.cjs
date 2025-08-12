@@ -5,9 +5,10 @@ const basePackage = require('../package.json')
 
 // 필요한 필드만 추출
 const distPackage = {
-  name: basePackage.name.replace('-component', ''),
+  name: "@ibsheet/react",
   version: basePackage.version,
   license: basePackage.license,
+  author: "IB Leaders <support@ibleaders.co.kr>",
   keywords: [
     "react",
     "ibsheet",
@@ -31,6 +32,11 @@ const distPackage = {
       "require": "./ibsheet-react.cjs.js",
       "types": "./index.d.ts"
     }
+  },
+  dependencies: {
+    "react": ">=18.2.0",
+    "react-dom": ">=18.2.0",
+    "@ibsheet/interface": ">=1.0.0"
   }
 }
 
