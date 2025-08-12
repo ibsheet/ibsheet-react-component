@@ -21,14 +21,13 @@
     "dev": "vite",
     "build": "vite build && tsc --project tsconfig.build.json && yarn copy-package",
     "copy-package": "node scripts/copy-package.cjs",
-    "postbuild": "shx cp src/README.md LICENSE dist/ibsheet-react/",
+    "postbuild": "shx cp src/README.md LICENSE CHANGELOG.md dist/ibsheet-react/",
     "lint": "eslint .",
     "preview": "vite preview",
     "release": "standard-version",
     "release:minor": "standard-version --release-as minor",
     "release:major": "standard-version --release-as major",
-    "release:publish": "yarn release && cd dist/ibsheet-react && npm publish --access public",
-    "postrelease": "shx cp CHANGELOG.md dist/ibsheet-react"
+    "release:publish": "yarn release && cd dist/ibsheet-react && npm publish --access public"
   },
   "dependencies": {
     "@ibsheet/interface": "^1.0.0",
