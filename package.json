@@ -23,7 +23,12 @@
     "copy-package": "node scripts/copy-package.cjs",
     "postbuild": "shx cp src/README.md LICENSE dist/ibsheet-react/",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "release": "standard-version",
+    "release:minor": "standard-version --release-as minor",
+    "release:major": "standard-version --release-as major",
+    "release:publish": "yarn release && cd dist/ibsheet-react && npm publish --access public",
+    "postrelease": "shx cp CHANGELOG.md dist/ibsheet-react"
   },
   "dependencies": {
     "@ibsheet/interface": "^1.0.0",
@@ -42,6 +47,7 @@
     "globals": "^16.3.0",
     "rollup-plugin-terser": "^7.0.2",
     "shx": "^0.4.0",
+    "standard-version": "^9.5.0",
     "typescript": "~5.8.3",
     "typescript-eslint": "^8.35.1",
     "vite": "^7.0.4"
