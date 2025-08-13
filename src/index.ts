@@ -1,2 +1,2 @@
-export { IBSheetReact } from './ibsheet-react/IBSheetReact';
-export * from '@ibsheet/interface';
+export { IBSheetReact } from './ibsheet-react/IBSheetReact'
+export * from '@ibsheet/interface'

@@ -1,8 +1,8 @@
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
-import path from 'path';
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+import path from 'path'
 // @ts-expect-error: 'rollup-plugin-terser' 타입 관련 임시 해결
-import { terser } from 'rollup-plugin-terser';
+import { terser } from 'rollup-plugin-terser'
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -66,4 +66,4 @@ export default defineConfig({
     },
   },
   plugins: [react()],
-});
+})

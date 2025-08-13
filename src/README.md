@@ -191,16 +191,16 @@ The component includes TypeScript definitions. Make sure to define your `IBSheet
 
 ```typescript
 interface IBSheetOptions {
-  Cfg?: IBSheetProperties;
-  Def?: object;
-  Cols?: IBCol[];
-  LeftCols?: IBCol[];
-  RightCols?: IBCol[];
-  Head?: any[];
-  Foot?: any[];
-  Solid?: any[];
-  Filter?: any[];
-  Events?: IBSheetEvents;
+  Cfg?: IBSheetProperties
+  Def?: object
+  Cols?: IBCol[]
+  LeftCols?: IBCol[]
+  RightCols?: IBCol[]
+  Head?: any[]
+  Foot?: any[]
+  Solid?: any[]
+  Filter?: any[]
+  Events?: IBSheetEvents
 }
 ```
 
