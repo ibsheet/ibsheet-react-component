@@ -1,7 +1,10 @@
+const prettierPlugin = require('eslint-plugin-prettier')
+const prettierConfig = require('eslint-config-prettier')
+
 // eslint.config.cjs
 module.exports = [
   {
-    ignores: ['dist/**'],
+    ignores: ['dist/**/*', 'node_modules/**/*'],
   },
   {
     files: ['**/*.{ts,tsx}'],
@@ -32,9 +35,9 @@ module.exports = [
       prettier: require('eslint-plugin-prettier'),
     },
     rules: {
-      'prettier/prettier': ['error'],
+      'prettier/prettier': ['error', require('./.prettierrc.json')],
       '@typescript-eslint/explicit-module-boundary-types': 'off',
       'react/react-in-jsx-scope': 'off',
     },
   },
-];
+]

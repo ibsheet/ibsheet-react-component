@@ -1,5 +1,15 @@
-import React, { useEffect, useRef, useState, forwardRef, type MutableRefObject } from 'react'
-import type { IBSheetCreateOptions, IBSheetInstance, IBSheetOptions } from '@ibsheet/interface'
+import React, {
+  useEffect,
+  useRef,
+  useState,
+  forwardRef,
+  type MutableRefObject,
+} from 'react'
+import type {
+  IBSheetCreateOptions,
+  IBSheetInstance,
+  IBSheetOptions,
+} from '@ibsheet/interface'
 
 interface IBSheetReactProps {
   options: IBSheetOptions
@@ -22,139 +32,153 @@ const generateId = (len: number): string => {
   ).join('')
 }
 
-const IBSheetReact = forwardRef<IBSheetInstance | null, IBSheetReactProps>((props, ref) => {
-  const {
-    options,
-    data = [],
-    sync = false,
-    style = { width: '100%', height: '800px' },
-    instance,
-    exgSheet,
-  } = props
+const IBSheetReact = forwardRef<IBSheetInstance | null, IBSheetReactProps>(
+  (props, ref) => {
+    const {
+      options,
+      data = [],
+      sync = false,
+      style = { width: '100%', height: '800px' },
+      instance,
+      exgSheet,
+    } = props
 
-  const [containerId] = useState(() => 'ibsheet-container-' + generateId(10))
-  const [sheetId] = useState(() => 'sheet_' + generateId(10))
+    const [containerId] = useState(() => 'ibsheet-container-' + generateId(10))
+    const [sheetId] = useState(() => 'sheet_' + generateId(10))
 
-  const containerRef = useRef<HTMLDivElement | null>(null)
-  const sheetObjRef = useRef<IBSheetInstance | null>(null)
-  const retryIntervalIdRef = useRef<ReturnType<typeof setInterval> | null>(null)
+    const containerRef = useRef<HTMLDivElement | null>(null)
+    const sheetObjRef = useRef<IBSheetInstance | null>(null)
+    const retryIntervalIdRef = useRef<ReturnType<typeof setInterval> | null>(
+      null
+    )
 
-  useEffect(() => {
-    const containerEl = containerRef.current
+    useEffect(() => {
+      const containerEl = containerRef.current
 
-    if (!options) {
-      console.error('[IBSheetReact] required input "options" not provided')
-      throw new Error('[IBSheetReact] "options" is required')
-    }
-
-    if (!containerEl) {
-      console.error('[IBSheetReact] containerRef.current is null')
-      return
-    }
-    if (sheetObjRef.current) {
-      // 이미 인스턴스 존재하면 재생성 금지
-      return
-    }
-
-    containerEl.id = containerId
-    containerEl.className = 'ibsheet-container'
-
-    Object.assign(containerEl.style, style)
-
-    if (exgSheet) {
-      const sheet = exgSheet as IBSheetInstanceWithId
-      const sheetEl = document.getElementById(sheet.id)
-
-      if (sheetEl && sheetEl.parentElement !== containerEl) {
-        try {
-          sheetEl.parentElement?.removeChild(sheetEl)
-        } catch (err) {
-          console.warn('[IBSheetReact] Failed to remove old sheet element:', err)
-        }
-        containerEl.appendChild(sheetEl)
+      if (!options) {
+        console.error('[IBSheetReact] required input "options" not provided')
+        throw new Error('[IBSheetReact] "options" is required')
       }
 
-      sheetObjRef.current = sheet
-
-      if (ref) {
-        if (typeof ref === 'function') ref(sheet)
-        else (ref as MutableRefObject<IBSheetInstance | null>).current = sheet
+      if (!containerEl) {
+        console.error('[IBSheetReact] containerRef.current is null')
+        return
       }
-      if (instance) instance(sheet)
-
-      return () => {
-        // 재사용 시에는 컴포넌트가 dispose 하지 않음
-        sheetObjRef.current = null
+      if (sheetObjRef.current) {
+        // 이미 인스턴스 존재하면 재생성 금지
+        return
       }
-    }
 
-    // IBSheet 로딩 및 초기화
-    let retryCount = 0
-    const maxRetries = 50
-    const intervalTime = 100
+      containerEl.id = containerId
+      containerEl.className = 'ibsheet-container'
 
-    retryIntervalIdRef.current = setInterval(() => {
-      const IBSheet = (window as any).IBSheet
-      if (IBSheet && IBSheet.version) {
-        if (retryIntervalIdRef.current) {
-          clearInterval(retryIntervalIdRef.current)
-          retryIntervalIdRef.current = null
-        }
-        try {
-          const opt: IBSheetCreateOptions = {
-            id: sheetId,
-            el: containerEl,
-            options,
-            data,
-            sync,
+      Object.assign(containerEl.style, style)
+
+      if (exgSheet) {
+        const sheet = exgSheet as IBSheetInstanceWithId
+        const sheetEl = document.getElementById(sheet.id)
+
+        if (sheetEl && sheetEl.parentElement !== containerEl) {
+          try {
+            sheetEl.parentElement?.removeChild(sheetEl)
+          } catch (err) {
+            console.warn(
+              '[IBSheetReact] Failed to remove old sheet element:',
+              err
+            )
           }
-
-          const sheet = IBSheet.create(opt)
-          sheetObjRef.current = sheet
-
-          if (ref) {
-            if (typeof ref === 'function') ref(sheet)
-            else (ref as MutableRefObject<IBSheetInstance | null>).current = sheet
-          }
-
-          if (instance) instance(sheet)
-        } catch (err) {
-          console.error('Error initializing IBSheet:', (err as Error).message || err)
+          containerEl.appendChild(sheetEl)
         }
-      } else {
-        retryCount++
-        if (retryCount >= maxRetries) {
+
+        sheetObjRef.current = sheet
+
+        if (ref) {
+          if (typeof ref === 'function') ref(sheet)
+          else (ref as MutableRefObject<IBSheetInstance | null>).current = sheet
+        }
+        if (instance) instance(sheet)
+
+        return () => {
+          // 재사용 시에는 컴포넌트가 dispose 하지 않음
+          sheetObjRef.current = null
+        }
+      }
+
+      // IBSheet 로딩 및 초기화
+      let retryCount = 0
+      const maxRetries = 50
+      const intervalTime = 100
+
+      retryIntervalIdRef.current = setInterval(() => {
+        const IBSheet = (window as any).IBSheet
+        if (IBSheet && IBSheet.version) {
           if (retryIntervalIdRef.current) {
             clearInterval(retryIntervalIdRef.current)
             retryIntervalIdRef.current = null
           }
-          console.error('[IBSheetReact] IBSheet Initialization Failed: Maximum Retry Exceeded')
-        }
-      }
-    }, intervalTime)
+          try {
+            const opt: IBSheetCreateOptions = {
+              id: sheetId,
+              el: containerEl,
+              options,
+              data,
+              sync,
+            }
 
-    return () => {
-      if (retryIntervalIdRef.current) {
-        clearInterval(retryIntervalIdRef.current)
-        retryIntervalIdRef.current = null
-      }
-      if (sheetObjRef.current?.dispose) {
-        try {
-          sheetObjRef.current.dispose()
-        } catch (err) {
-          console.warn('Error disposing IBSheet instance:', err)
-        }
-      }
-      sheetObjRef.current = null
-      if (ref) {
-        if (typeof ref === 'function') ref(null)
-        else (ref as MutableRefObject<IBSheetInstance | null>).current = null
-      }
-      containerEl.innerHTML = '' // 필요 시 초기화
-    }
-  }, [options, data, sync, style, instance, containerId, sheetId, exgSheet])
+            const sheet = IBSheet.create(opt)
+            sheetObjRef.current = sheet
 
-  return <div ref={containerRef} />
-})
+            if (ref) {
+              if (typeof ref === 'function') ref(sheet)
+              else
+                (ref as MutableRefObject<IBSheetInstance | null>).current =
+                  sheet
+            }
+
+            if (instance) instance(sheet)
+          } catch (err) {
+            console.error(
+              'Error initializing IBSheet:',
+              (err as Error).message || err
+            )
+          }
+        } else {
+          retryCount++
+          if (retryCount >= maxRetries) {
+            if (retryIntervalIdRef.current) {
+              clearInterval(retryIntervalIdRef.current)
+              retryIntervalIdRef.current = null
+            }
+            console.error(
+              '[IBSheetReact] IBSheet Initialization Failed: Maximum Retry Exceeded'
+            )
+          }
+        }
+      }, intervalTime)
+
+      return () => {
+        if (retryIntervalIdRef.current) {
+          clearInterval(retryIntervalIdRef.current)
+          retryIntervalIdRef.current = null
+        }
+        if (sheetObjRef.current?.dispose) {
+          try {
+            sheetObjRef.current.dispose()
+          } catch (err) {
+            console.warn('Error disposing IBSheet instance:', err)
+          }
+        }
+        sheetObjRef.current = null
+        if (ref) {
+          if (typeof ref === 'function') ref(null)
+          else (ref as MutableRefObject<IBSheetInstance | null>).current = null
+        }
+        containerEl.innerHTML = '' // 필요 시 초기화
+      }
+    }, [options, data, sync, style, instance, containerId, sheetId, exgSheet])
+
+    return <div ref={containerRef} />
+  }
+)
 
 export { IBSheetReact }
