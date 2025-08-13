@@ -5,8 +5,8 @@
     "declarationMap": true,
     "emitDeclarationOnly": true,
     "outDir": "dist/ibsheet-react",
-    "noEmit": false,                  // 중요!
-    "composite": false,                // build 전용이면 false로
+    "noEmit": false, // 중요!
+    "composite": false // build 전용이면 false로
   },
-  "include": ["src"]
+  "include": ["src/**/*"]
 }

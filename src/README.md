@@ -16,11 +16,13 @@ A React wrapper component for IBSheet, providing a seamless integration of IBShe
 Make sure you have IBSheet library loaded in your project before using this component.
 
 Using npm:
+
 ```bash
 npm install @ibsheet/react
 ```
 
 Using yarn:
+
 ```bash
 yarn add @ibsheet/react
 ```
@@ -57,7 +59,7 @@ function App() {
   return (
     <div>
       <h1>My Spreadsheet</h1>
-      <IBSheetReact 
+      <IBSheetReact
         options={options}
         data={data}
         ref={sheetRef}
@@ -83,8 +85,8 @@ function App() {
 
   const options: IBSheetOptions = {
     // Your IBSheet configuration options
-    Cfg: { 
-      SearchMode: 2, 
+    Cfg: {
+      SearchMode: 2,
       HeaderMerge: 3
     },
     Cols: [
@@ -93,7 +95,7 @@ function App() {
       { Header: "Age", Type: "Int", Name: "age" },
       { Header: "Ymd", Name: "sDate_Ymd", Extend: IB_Preset.YMD, Width: 110 },
       { Header: "Ym",  Name: "sDate_Ym",  Extend: IB_Preset.YM,  Width: 90 },
-      { Header: "Md",  Name: "sDate_Md",  Extend: IB_Preset.MD,  Width: 90 }  
+      { Header: "Md",  Name: "sDate_Md",  Extend: IB_Preset.MD,  Width: 90 }
     ]
   }
 
@@ -138,7 +140,7 @@ function App() {
         <button onClick={addRow}>Add Row</button>
         <button onClick={getDataRows}>Get Data</button>
       </div>
-      
+
       <IBSheetReact
         options={options}
         data={data}
@@ -154,14 +156,14 @@ function App() {
 
 ## Props
 
-| Prop | Type | Required | Default | Description |
-|------|------|----------|---------|-------------|
-| `options` | `IBSheetOptions` | ✅ | - | IBSheet configuration options |
-| `data` | `any[]` | ❌ | `[]` | Initial data for the spreadsheet |
-| `sync` | `boolean` | ❌ | `false` | Enable data synchronization |
-| `style` | `React.CSSProperties` | ❌ | `{ width: '100%', height: '800px' }` | Container styling |
-| `instance` | `(sheet: IBSheetInstance) => void` | ❌ | - | Callback when sheet instance is created |
-| `exgSheet` | `IBSheetInstance` | ❌ | - | Existing IBSheet instance to reuse |
+| Prop       | Type                               | Required | Default                              | Description                             |
+| ---------- | ---------------------------------- | -------- | ------------------------------------ | --------------------------------------- |
+| `options`  | `IBSheetOptions`                   | ✅       | -                                    | IBSheet configuration options           |
+| `data`     | `any[]`                            | ❌       | `[]`                                 | Initial data for the spreadsheet        |
+| `sync`     | `boolean`                          | ❌       | `false`                              | Enable data synchronization             |
+| `style`    | `React.CSSProperties`              | ❌       | `{ width: '100%', height: '800px' }` | Container styling                       |
+| `instance` | `(sheet: IBSheetInstance) => void` | ❌       | -                                    | Callback when sheet instance is created |
+| `exgSheet` | `IBSheetInstance`                  | ❌       | -                                    | Existing IBSheet instance to reuse      |
 
 ## Advanced Usage
 
@@ -245,6 +247,7 @@ The component applies default dimensions of 100% width and 800px height.
 - Use React.memo() to prevent unnecessary re-renders
 
 **Solutions:**
+
 - Confirm IBSheet script is loaded in your `index.html`
 - Check network requests to ensure IBSheet files are accessible
 - Verify IBSheet version compatibility
@@ -254,8 +257,9 @@ The component applies default dimensions of 100% width and 800px height.
 Using Including External Script
 
 ex) in index.html
+
 ```html
-<link rel="stylesheet" href="ibsheet_path/css/default/main.css"/>
+<link rel="stylesheet" href="ibsheet_path/css/default/main.css" />
 
 <script src="ibsheet_path/ibsheet.js"></script>
 <script src="ibsheet_path/locale/ko.js"></script>
@@ -265,6 +269,7 @@ ex) in index.html
 ```
 
 Using IBSheetLoader
+
 - reference: https://www.npmjs.com/package/@ibsheet/loader
 - manual: https://ibsheet.github.io/loader-manual
 
