@@ -33,7 +33,7 @@ yarn add @ibsheet/react
 
 ```jsx
 import React, { useRef } from 'react';
-import { IBSheetReact, type IBSheetInstance, type IBSheetOptions } from 'ibsheet-react';
+import { IBSheetReact, type IBSheetInstance, type IBSheetOptions } from '@ibsheet/react';
 
 const sheetRef = useRef<IBSheetInstance | null>(null);
 
@@ -75,7 +75,7 @@ export default App;
 
 ```jsx
 import React, { useRef } from 'react';
-import { IBSheetReact, IB_Preset, type IBSheetInstance, type IBSheetOptions, type IBSheetEvents } from 'ibsheet-react';
+import { IBSheetReact, IB_Preset, type IBSheetInstance, type IBSheetOptions, type IBSheetEvents } from '@ibsheet/react';
 
 type OnAfterChangeParam = Parameters<NonNullable<IBSheetEvents['onAfterChange']>>[0];
 
