@@ -279,7 +279,8 @@ https://docs.ibsheet.com/ibsheet/v8/manual/#docs/intro/1introduce
 
 ## Sample
 
-https://github.com/ibsheet/ibsheet-react-sample.git
+- https://github.com/ibsheet/ibsheet-react-sample.git
+- https://github.com/ibsheet/loader-react-guide-samples.git
 
 ## License
 
