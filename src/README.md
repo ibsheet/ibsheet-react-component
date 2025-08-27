@@ -252,7 +252,7 @@ The component applies default dimensions of 100% width and 800px height.
 - Check network requests to ensure IBSheet files are accessible
 - Verify IBSheet version compatibility
 
-## load to IBSheet
+## Load the IBSheet Library
 
 Using Including External Script
 
@@ -272,6 +272,12 @@ Using IBSheetLoader
 
 - reference: https://www.npmjs.com/package/@ibsheet/loader
 - manual: https://ibsheet.github.io/loader-manual
+
+## Local Setup of the IBSheet Library
+
+- Install the IBSheet library in the project's `root/public` directory or a subdirectory within `root/public`
+- If you are using the "Including External Script" method, set the path to the IBSheet library in `ibsheet_path`
+- If you are using the "IBSheetLoader" method, set the path to the IBSheet library in `baseUrl`
 
 ## IBSheet Manual
 
