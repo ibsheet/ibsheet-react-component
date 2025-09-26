@@ -36,7 +36,7 @@ const distPackage = {
   dependencies: {
     "react": ">=18.2.0",
     "react-dom": ">=18.2.0",
-    "@ibsheet/interface": ">=1.0.0"
+    "@ibsheet/interface": "latest"
   }
 }
 
