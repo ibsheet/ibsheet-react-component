@@ -32,12 +32,10 @@ yarn add @ibsheet/react
 ### Basic Usage
 
 ```jsx
-import React, { useRef } from 'react';
 import { IBSheetReact, type IBSheetInstance, type IBSheetOptions } from '@ibsheet/react';
 
-const sheetRef = useRef<IBSheetInstance | null>(null);
-
 function App() {
+  let mySheet: IBSheetInstance;
   const options: IBSheetOptions = {
     // Your IBSheet configuration options
     Cfg: {
@@ -45,24 +43,27 @@ function App() {
       HeaderMerge: 3
     },
     Cols: [
-      { Header: "ID", Type: "Text", Name: "id" },
+      { Header: "ID", Type: "Text", Name: "sId" },
       { Header: "Name", Type: "Text", Name: "name" },
       { Header: "Age", Type: "Int", Name: "age" }
     ]
   };
 
   const data = [
-    { id: "1", name: "John Doe", age: 30 },
-    { id: "2", name: "Jane Smith", age: 25 }
+    { sId: "1", name: "John Doe", age: 30 },
+    { sId: "2", name: "Jane Smith", age: 25 }
   ];
+
+  const getInstance = (sheet) => {
+    mySheet = sheet;
+  };
 
   return (
     <div>
-      <h1>My Spreadsheet</h1>
       <IBSheetReact
         options={options}
         data={data}
-        ref={sheetRef}
+        instance={getInstance}
       />
     </div>
   );
@@ -71,17 +72,26 @@ function App() {
 export default App;
 ```
 
+Example: https://stackblitz.com/edit/vitejs-vite-ejncmlbw
+
 ### Advanced Usage with Event Handling
 
 ```jsx
-import React, { useRef } from 'react';
-import { IBSheetReact, IB_Preset, type IBSheetInstance, type IBSheetOptions, type IBSheetEvents } from '@ibsheet/react';
+import { 
+  IBSheetReact, 
+  IB_Preset, 
+  type IBSheetInstance, 
+  type IBSheetOptions, 
+  type IBSheetEvents 
+} from '@ibsheet/react';
 
-type OnAfterChangeParam = Parameters<NonNullable<IBSheetEvents['onAfterChange']>>[0];
+const handleAfterChange: IBSheetEvents['onAfterChange'] = (param) => { 
+  // The type of the parameter is automatically inferred.
+  console.log('Data changed value:', param.val); 
+};
 
 function App() {
-  const sheetRef = useRef<IBSheetInstance | null>(null);
-  let sheetInstance: IBSheetInstance;
+  let mySheet: IBSheetInstance;
 
   const options: IBSheetOptions = {
     // Your IBSheet configuration options
@@ -90,41 +100,38 @@ function App() {
       HeaderMerge: 3
     },
     Cols: [
-      { Header: "ID", Type: "Text", Name: "id" },
+      { Header: "ID", Type: "Text", Name: "sId" },
       { Header: "Name", Type: "Text", Name: "name" },
       { Header: "Age", Type: "Int", Name: "age" },
-      { Header: "Ymd", Name: "sDate_Ymd", Extend: IB_Preset.YMD, Width: 110 },
-      { Header: "Ym",  Name: "sDate_Ym",  Extend: IB_Preset.YM,  Width: 90 },
-      { Header: "Md",  Name: "sDate_Md",  Extend: IB_Preset.MD,  Width: 90 }
-    ]
+      { Header: "Ymd", Name: "sDate_Ymd", Extend: IB_Preset.YMD, Width: 110 }
+    ],
+    Events: {
+      onAfterChange: handleAfterChange
+    }
   }
 
   const data = [
     // Your data
+    { sId: '1', name: 'John Doe', age: 30, sDate_Ymd:'20250923' },
+    { sId: '2', name: 'Jane Smith', age: 25, sDate_Ymd:'20251002' }
   ];
 
   const getInstance = (sheet: IBSheetInstance) => {
-    console.log('Sheet instance created:', sheet);
     // You can store the sheet instance or perform initial operations
-    sheetInstance = sheet;
+    mySheet = sheet;
+  };
 
-    if (sheet.addEventListener) {
-      sheet.addEventListener('onAfterChange', (event: OnAfterChangeParam) => {
-        console.log('Data changed value:', event.val);
-      });
+  const handleAddRow = () => {
+    if (mySheet) {
+      mySheet.addRow();
     }
   };
 
-  const addRow = () => {
-    if (sheetRef) {
-      sheetRef.current.addRow();
-    }
-  };
-
-  const getDataRows = () => {
-    if (sheetRef) {
-      const data = sheetRef.current.getDataRows();
-      console.log('Sheet data:', data);
+  const handleExportExcel = () => {
+    if (mySheet) {
+      // exportData method requires the jsZip library
+      // When checking for the jsZip library, if it hasn't been loaded separately, the file at ./plugins/jszip.min.js (relative to ibsheet.js) will be loaded automatically.
+      mySheet.exportData({fileName:'ibsheet_react_export_example.xlsx'})
     }
   };
 
@@ -137,22 +144,22 @@ function App() {
   return (
     <div>
       <div>
-        <button onClick={addRow}>Add Row</button>
-        <button onClick={getDataRows}>Get Data</button>
+        <button onClick={handleAddRow}>Add Row</button>
+        <button onClick={handleExportExcel}>Export Excel</button>
       </div>
 
       <IBSheetReact
         options={options}
         data={data}
-        sync={false}
         style={customStyle}
-        ref={sheetRef}
         instance={getInstance}
       />
     </div>
   );
 }
 ```
+
+Example: https://stackblitz.com/edit/vitejs-vite-bsfserm2
 
 ## Props
 
