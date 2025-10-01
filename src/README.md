@@ -35,7 +35,6 @@ yarn add @ibsheet/react
 import { IBSheetReact, type IBSheetInstance, type IBSheetOptions } from '@ibsheet/react';
 
 function App() {
-  let mySheet: IBSheetInstance;
   const options: IBSheetOptions = {
     // Your IBSheet configuration options
     Cfg: {
@@ -54,16 +53,11 @@ function App() {
     { sId: "2", name: "Jane Smith", age: 25 }
   ];
 
-  const getInstance = (sheet) => {
-    mySheet = sheet;
-  };
-
   return (
     <div>
       <IBSheetReact
         options={options}
         data={data}
-        instance={getInstance}
       />
     </div>
   );
@@ -77,6 +71,7 @@ Example: https://stackblitz.com/edit/vitejs-vite-ejncmlbw
 ### Advanced Usage with Event Handling
 
 ```jsx
+import { useRef } from 'react';
 import { 
   IBSheetReact, 
   IB_Preset, 
@@ -91,7 +86,7 @@ const handleAfterChange: IBSheetEvents['onAfterChange'] = (param) => {
 };
 
 function App() {
-  let mySheet: IBSheetInstance;
+  const sheetRef = useRef<IBSheetInstance | null>(null);
 
   const options: IBSheetOptions = {
     // Your IBSheet configuration options
@@ -116,22 +111,17 @@ function App() {
     { sId: '2', name: 'Jane Smith', age: 25, sDate_Ymd:'20251002' }
   ];
 
-  const getInstance = (sheet: IBSheetInstance) => {
-    // You can store the sheet instance or perform initial operations
-    mySheet = sheet;
-  };
-
   const handleAddRow = () => {
-    if (mySheet) {
-      mySheet.addRow();
+    if (sheetRef && sheetRef.current) {
+      sheetRef.current.addRow();
     }
   };
 
   const handleExportExcel = () => {
-    if (mySheet) {
+    if (sheetRef && sheetRef.current) {
       // exportData method requires the jsZip library
       // When checking for the jsZip library, if it hasn't been loaded separately, the file at ./plugins/jszip.min.js (relative to ibsheet.js) will be loaded automatically.
-      mySheet.exportData({fileName:'ibsheet_react_export_example.xlsx'})
+      sheetRef.current.exportData({fileName:'ibsheet_react_export_example.xlsx'})
     }
   };
 
@@ -152,7 +142,7 @@ function App() {
         options={options}
         data={data}
         style={customStyle}
-        instance={getInstance}
+        ref={sheetRef}
       />
     </div>
   );
