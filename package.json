@@ -32,7 +32,7 @@
     "release": "standard-version",
     "release:minor": "standard-version --release-as minor",
     "release:major": "standard-version --release-as major",
-    "release:publish": "yarn release && cd dist/ibsheet-react && npm publish --access public"
+    "release:publish": "yarn release && yarn build && cd dist/ibsheet-react && npm publish --access public"
   },
   "dependencies": {
     "@ibsheet/interface": "latest",
