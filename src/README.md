@@ -213,6 +213,21 @@ interface IBSheetOptions {
 
 IBSheet interface: https://www.npmjs.com/package/@ibsheet/interface
 
+## Component Behavior
+
+### Lifecycle Management
+IBSheetReact creates IBSheet instances **only on mount** and does not recreate them when props change:
+
+- ✅ Component mount: IBSheet instance created
+- ❌ Props change: No recreation (performance optimization)
+- ✅ Component unmount: Instance cleanup and disposal
+
+This design prioritizes performance since IBSheet is a heavy library that should avoid unnecessary recreations.
+
+### Props Change Handling
+
+Since the component uses an empty dependency array in `useEffect([])`, prop changes do not trigger IBSheet recreation. This behavior requires specific handling patterns:
+
 ## Error Handling
 
 The component includes built-in error handling:
@@ -229,9 +244,11 @@ The component applies default dimensions of 100% width and 800px height.
 ## Important Notes
 
 1. **IBSheet Library**: Ensure the IBSheet library is loaded before this component mounts. The component will retry initialization for up to 5 seconds.
-2. **Container ID**: Each instance generates a unique container ID to avoid conflicts when using multiple sheets.
-3. **Memory Management**: The component automatically cleans up IBSheet instances when unmounting to prevent memory leaks.
-4. **Error Logging**: Check the browser console for initialization errors or warnings.
+2. **Props Reactivity**: The component does NOT react to prop changes after initial mount. Use instance methods or force remount with `key` prop for dynamic updates.
+3. **Container ID**: Each instance generates a unique container ID to avoid conflicts when using multiple sheets.
+4. **Memory Management**: The component automatically cleans up IBSheet instances when unmounting to prevent memory leaks, except when using `exgSheet` prop.
+5. **Error Logging**: Check the browser console for initialization errors or warnings.
+6. **Performance Optimization**: The component prioritizes performance by avoiding unnecessary recreations, which means manual handling is required for dynamic scenarios.
 
 ## Troubleshooting
 
