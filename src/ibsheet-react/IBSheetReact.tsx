@@ -175,7 +175,7 @@ const IBSheetReact = forwardRef<IBSheetInstance | null, IBSheetReactProps>(
         }
         containerEl.innerHTML = '' // 필요 시 초기화
       }
-    }, [options, data, sync, style, instance, containerId, sheetId, exgSheet])
+    }, [])
 
     return <div ref={containerRef} />
   }
