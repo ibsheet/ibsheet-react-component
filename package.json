@@ -1,7 +1,7 @@
 {
   "name": "ibsheet-react-component",
   "private": true,
-  "version": "1.0.6",
+  "version": "1.1.0",
   "license": "MIT",
   "type": "module",
   "types": "dist/ibsheet-react/index.d.ts",
