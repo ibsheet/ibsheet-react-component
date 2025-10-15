@@ -111,7 +111,54 @@ const IBSheetReact = forwardRef<IBSheetInstance | null, IBSheetReactProps>(
 
       retryIntervalIdRef.current = setInterval(() => {
         const IBSheet = (window as any).IBSheet
-        if (IBSheet && IBSheet.version) {
+        const IBSheetLoader = (window as any).IBSheetLoader
+        // IBSheetLoader 사용 시, loader가 로드 완료된 후에 IBSheet 객체가 생성되도록 조건 추가
+        if (IBSheetLoader && IBSheetLoader.version) {
+          const loaderState = IBSheetLoader['_status']
+          if (loaderState == 0 && IBSheet && IBSheet.version) {
+            if (retryIntervalIdRef.current) {
+              clearInterval(retryIntervalIdRef.current)
+              retryIntervalIdRef.current = null
+            }
+            try {
+              const opt: IBSheetCreateOptions = {
+                id: sheetId,
+                el: containerEl,
+                options,
+                data,
+                sync,
+              }
+
+              const sheet = IBSheet.create(opt)
+              sheetObjRef.current = sheet
+
+              if (ref) {
+                if (typeof ref === 'function') ref(sheet)
+                else
+                  (ref as MutableRefObject<IBSheetInstance | null>).current =
+                    sheet
+              }
+
+              if (instance) instance(sheet)
+            } catch (err) {
+              console.error(
+                'Error initializing IBSheet:',
+                (err as Error).message || err
+              )
+            }
+          }
+
+          retryCount++
+          if (retryCount >= maxRetries) {
+            if (retryIntervalIdRef.current) {
+              clearInterval(retryIntervalIdRef.current)
+              retryIntervalIdRef.current = null
+            }
+            console.error(
+              '[IBSheetReact] IBSheet Initialization Failed: Maximum Retry Exceeded'
+            )
+          }
+        } else if (IBSheet && IBSheet.version) {
           if (retryIntervalIdRef.current) {
             clearInterval(retryIntervalIdRef.current)
             retryIntervalIdRef.current = null
