@@ -10,7 +10,7 @@ export default defineConfig({
     lib: {
       entry: path.resolve(__dirname, 'src/index.ts'),
       name: 'IBSheetReact',
-      fileName: (format) => `ibsheet-react.${format}.js`,
+      fileName: format => `ibsheet-react.${format}.js`,
     },
     outDir: 'dist/ibsheet-react',
     sourcemap: false,
