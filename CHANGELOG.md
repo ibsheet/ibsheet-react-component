@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.1](https://github.com/ibsheet/ibsheet-react-component/compare/v1.1.0...v1.1.1) (2026-04-30)
+
+
+### Features
+
+* React 최소 지원 버전을 18로 변경 및 peerDependencies 적용
+
 ## [1.1.0](https://github.com/ibsheet/ibsheet-react-component/compare/v1.0.6...v1.1.0) (2025-10-15)
 
 
