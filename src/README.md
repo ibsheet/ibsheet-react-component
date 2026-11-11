@@ -1,10 +1,16 @@
 # ibsheet-react
 
-A React wrapper component for IBSheet, providing a seamless integration of IBSheet spreadsheet functionality into React applications.
+**@ibsheet/react** is a React data grid component: the official wrapper for using [**IBsheet 8**](https://www.ibsheet.com), a JavaScript data grid, in React. IBsheet 8 supports tree, grouping, subtotals, pivot, formulas, frozen panes, cell merge, and Excel export and import.
+
+**@ibsheet/react**는 React(리액트) 데이터 그리드 컴포넌트입니다. 웹 데이터 그리드 [**IBsheet 8**](https://www.ibsheet.com)을 React에서 쓰기 위한 공식 래퍼입니다. IBsheet 8은 트리 · 그룹핑 · 소계 · 피벗 · 수식 · 틀고정 · 셀 병합 · 엑셀 내보내기와 가져오기를 지원합니다.
+
+- IBsheet 8 homepage (제품 소개): https://www.ibsheet.com
+- IBsheet 8 manual (매뉴얼): https://docs.ibsheet.com/ibsheet/v8/manual/
+- MCP server for AI coding tools such as Claude Code, Cursor, GitHub Copilot, Codex CLI and Gemini CLI (AI 코딩 도구 연동): https://docs.ibsheet.com/ibsheet/v8/manual/docs/start/mcp.html
 
 ## Features
 
-- 🔧 Easy integration with IBSheet library
+- 🔧 Easy integration with IB Sheet library
 - ⚡ Automatic initialization and cleanup
 - 🎯 TypeScript support
 - 🔄 Data synchronization support
@@ -13,7 +19,7 @@ A React wrapper component for IBSheet, providing a seamless integration of IBShe
 
 ## Installation
 
-Make sure you have IBSheet library loaded in your project before using this component.
+Make sure you have IB Sheet library loaded in your project before using this component.
 
 Using npm:
 
@@ -155,16 +161,16 @@ Example: https://stackblitz.com/edit/vitejs-vite-bsfserm2
 
 | Prop       | Type                               | Required | Default                              | Description                             |
 | ---------- | ---------------------------------- | -------- | ------------------------------------ | --------------------------------------- |
-| `options`  | `IBSheetOptions`                   | ✅       | -                                    | IBSheet configuration options           |
+| `options`  | `IBSheetOptions`                   | ✅       | -                                    | IB Sheet configuration options           |
 | `data`     | `any[]`                            | ❌       | `[]`                                 | Initial data for the spreadsheet        |
 | `sync`     | `boolean`                          | ❌       | `false`                              | Enable data synchronization             |
 | `style`    | `React.CSSProperties`              | ❌       | `{ width: '100%', height: '800px' }` | Container styling                       |
 | `instance` | `(sheet: IBSheetInstance) => void` | ❌       | -                                    | Callback when sheet instance is created |
-| `exgSheet` | `IBSheetInstance`                  | ❌       | -                                    | Existing IBSheet instance to reuse      |
+| `exgSheet` | `IBSheetInstance`                  | ❌       | -                                    | Existing IB Sheet instance to reuse      |
 
 ## Advanced Usage
 
-### Reusing Existing IBSheet Instance
+### Reusing Existing IB Sheet Instance
 
 ```typescript
 const App: React.FC = () => {
@@ -201,30 +207,30 @@ interface IBSheetOptions {
 }
 ```
 
-IBSheet interface: https://www.npmjs.com/package/@ibsheet/interface
+IB Sheet interface: https://www.npmjs.com/package/@ibsheet/interface
 
 ## Component Behavior
 
 ### Lifecycle Management
-IBSheetReact creates IBSheet instances **only on mount** and does not recreate them when props change:
+IBSheetReact creates IB Sheet instances **only on mount** and does not recreate them when props change:
 
-- ✅ Component mount: IBSheet instance created
+- ✅ Component mount: IB Sheet instance created
 - ❌ Props change: No recreation (performance optimization)
 - ✅ Component unmount: Instance cleanup and disposal
 
-This design prioritizes performance since IBSheet is a heavy library that should avoid unnecessary recreations.
+This design prioritizes performance since IB Sheet is a heavy library that should avoid unnecessary recreations.
 
 ### Props Change Handling
 
-Since the component uses an empty dependency array in `useEffect([])`, prop changes do not trigger IBSheet recreation. This behavior requires specific handling patterns:
+Since the component uses an empty dependency array in `useEffect([])`, prop changes do not trigger IB Sheet recreation. This behavior requires specific handling patterns:
 
 ## Error Handling
 
 The component includes built-in error handling:
 
 - Validates that `options` prop is provided
-- Retries IBSheet initialization up to 50 times (5 seconds total)
-- Safely disposes of IBSheet instances on unmount
+- Retries IB Sheet initialization up to 50 times (5 seconds total)
+- Safely disposes of IB Sheet instances on unmount
 - Logs errors to console for debugging
 
 ### Default Styling
@@ -233,22 +239,22 @@ The component applies default dimensions of 100% width and 800px height.
 
 ## Important Notes
 
-1. **IBSheet Library**: Ensure the IBSheet library is loaded before this component mounts. The component will retry initialization for up to 5 seconds.
+1. **IB Sheet Library**: Ensure the IB Sheet library is loaded before this component mounts. The component will retry initialization for up to 5 seconds.
 2. **Props Reactivity**: The component does NOT react to prop changes after initial mount. Use instance methods or force remount with `key` prop for dynamic updates.
 3. **Container ID**: Each instance generates a unique container ID to avoid conflicts when using multiple sheets.
-4. **Memory Management**: The component automatically cleans up IBSheet instances when unmounting to prevent memory leaks, except when using `exgSheet` prop.
+4. **Memory Management**: The component automatically cleans up IB Sheet instances when unmounting to prevent memory leaks, except when using `exgSheet` prop.
 5. **Error Logging**: Check the browser console for initialization errors or warnings.
 6. **Performance Optimization**: The component prioritizes performance by avoiding unnecessary recreations, which means manual handling is required for dynamic scenarios.
 
 ## Troubleshooting
 
-### IBSheet not initializing
+### IB Sheet not initializing
 
-- Ensure IBSheet library is loaded before the component mounts
+- Ensure IB Sheet library is loaded before the component mounts
 - Check browser console for error messages
-- Verify that `options` prop contains valid IBSheet configuration
+- Verify that `options` prop contains valid IB Sheet configuration
 
-### IBSheet library not found
+### IB Sheet library not found
 
 ```
 [initializeIBSheet] IBSheet Initialization Failed: Maximum Retry Exceeded
@@ -262,11 +268,11 @@ The component applies default dimensions of 100% width and 800px height.
 
 **Solutions:**
 
-- Confirm IBSheet script is loaded in your `index.html`
-- Check network requests to ensure IBSheet files are accessible
-- Verify IBSheet version compatibility
+- Confirm IB Sheet script is loaded in your `index.html`
+- Check network requests to ensure IB Sheet files are accessible
+- Verify IB Sheet version compatibility
 
-## Load the IBSheet Library
+## Load the IB Sheet Library
 
 Using Including External Script
 
@@ -287,13 +293,13 @@ Using IBSheetLoader
 - reference: https://www.npmjs.com/package/@ibsheet/loader
 - manual: https://ibsheet.github.io/loader-manual
 
-## Local Setup of the IBSheet Library
+## Local Setup of the IB Sheet Library
 
-- Install the IBSheet library in the project's `root/public` directory or a subdirectory within `root/public`
-- If you are using the "Including External Script" method, set the path to the IBSheet library in `ibsheet_path`
-- If you are using the "IBSheetLoader" method, set the path to the IBSheet library in `baseUrl`
+- Install the IB Sheet library in the project's `root/public` directory or a subdirectory within `root/public`
+- If you are using the "Including External Script" method, set the path to the IB Sheet library in `ibsheet_path`
+- If you are using the "IBSheetLoader" method, set the path to the IB Sheet library in `baseUrl`
 
-## IBSheet Manual
+## IB Sheet Manual
 
 https://docs.ibsheet.com/ibsheet/v8/manual/#docs/intro/1introduce
 

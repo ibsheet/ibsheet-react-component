@@ -6,6 +6,7 @@ const basePackage = require('../package.json')
 // 필요한 필드만 추출
 const distPackage = {
   name: "@ibsheet/react",
+  description: "React data grid component: the official wrapper for the IBsheet 8 JavaScript data grid",
   version: basePackage.version,
   license: basePackage.license,
   author: "IB Leaders <support@ibleaders.co.kr>",
@@ -13,7 +14,18 @@ const distPackage = {
     "react",
     "ibsheet",
     "grid",
-    "component"
+    "component",
+    "ibsheet8",
+    "react-component",
+    "data-grid",
+    "datagrid",
+    "table",
+    "spreadsheet",
+    "excel",
+    "typescript",
+    "react-grid",
+    "react-data-grid",
+    "react-datagrid"
   ],
   repository: {
     "type": "git",
